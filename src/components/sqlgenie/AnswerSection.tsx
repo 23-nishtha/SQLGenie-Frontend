@@ -15,7 +15,10 @@ export function AnswerSection({ result }: { result: AskSuccess }) {
   return (
     <section aria-labelledby="answer-heading" className="glass-panel rounded-3xl p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="answer-heading" className="flex items-center gap-2 font-display text-base font-semibold">
+        <h2
+          id="answer-heading"
+          className="flex items-center gap-2 font-display text-base font-semibold"
+        >
           <Sparkles className="size-4 text-brand" aria-hidden />
           Result
         </h2>

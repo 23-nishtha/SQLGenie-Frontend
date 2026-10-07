@@ -99,11 +99,14 @@ export function Pipeline({ trace, isAsking }: Props) {
     realSteps.length > 0
       ? realSteps
       : isAsking
-        ? PENDING_STAGES.map((type, index) => ({
-            index,
-            type,
-            status: index === 0 ? "running" : "pending",
-          }) as PipelineStep)
+        ? PENDING_STAGES.map(
+            (type, index) =>
+              ({
+                index,
+                type,
+                status: index === 0 ? "running" : "pending",
+              }) as PipelineStep,
+          )
         : [];
 
   if (steps.length === 0) return null;

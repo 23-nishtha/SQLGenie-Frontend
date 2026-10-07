@@ -215,8 +215,7 @@
 @utility app-backdrop {
   background:
     radial-gradient(70rem 40rem at 12% -10%, var(--brand-soft), transparent 65%),
-    radial-gradient(55rem 35rem at 95% 0%, oklch(0.99 0 0 / 5%), transparent 60%),
-    var(--background);
+    radial-gradient(55rem 35rem at 95% 0%, oklch(0.99 0 0 / 5%), transparent 60%), var(--background);
 }
 
 @utility glass-panel {
@@ -264,8 +263,7 @@
 .theme-backdrop__wash {
   background:
     radial-gradient(70rem 40rem at 12% -10%, var(--brand-soft), transparent 65%),
-    radial-gradient(55rem 35rem at 95% 0%, oklch(0.99 0 0 / 5%), transparent 60%),
-    var(--background);
+    radial-gradient(55rem 35rem at 95% 0%, oklch(0.99 0 0 / 5%), transparent 60%), var(--background);
 }
 
 /* The theme's illustrated environment (pitch / ops floor / cinema set).
@@ -351,7 +349,9 @@
  * a ticket-stub notch. */
 [data-theme="entertainment"] .glass-panel,
 [data-theme="entertainment"] .dataset-info-card {
-  box-shadow: var(--shadow-elevated), 0 0 48px -16px var(--brand-glow);
+  box-shadow:
+    var(--shadow-elevated),
+    0 0 48px -16px var(--brand-glow);
   border-color: color-mix(in oklab, var(--brand) 25%, var(--border));
 }
 [data-theme="entertainment"] .glass-panel h2 {

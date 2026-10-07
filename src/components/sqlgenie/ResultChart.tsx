@@ -68,7 +68,14 @@ export function ResultChart({ result, plan }: { result: AskSuccess; plan: ChartP
         ) : (
           <BarChart data={data} margin={{ top: 12, right: 16, bottom: 8, left: 0 }}>
             <CartesianGrid stroke="var(--border)" vertical={false} />
-            <XAxis dataKey="__label" {...axisProps} interval={0} angle={-15} textAnchor="end" height={60} />
+            <XAxis
+              dataKey="__label"
+              {...axisProps}
+              interval={0}
+              angle={-15}
+              textAnchor="end"
+              height={60}
+            />
             <YAxis {...axisProps} />
             {tooltip}
             {plan.valueKeys.length > 1 && <Legend wrapperStyle={{ fontSize: 12 }} />}

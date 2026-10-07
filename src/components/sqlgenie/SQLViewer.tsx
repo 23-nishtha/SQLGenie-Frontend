@@ -37,7 +37,11 @@ export function SQLViewer({ sql, guardApproved }: { sql: string; guardApproved: 
             className="absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
             aria-label="Copy SQL"
           >
-            {copied ? <Check className="size-3.5" aria-hidden /> : <Copy className="size-3.5" aria-hidden />}
+            {copied ? (
+              <Check className="size-3.5" aria-hidden />
+            ) : (
+              <Copy className="size-3.5" aria-hidden />
+            )}
             {copied ? "Copied" : "Copy"}
           </button>
           <pre className="overflow-x-auto rounded-2xl bg-background/70 p-4 pr-24 font-mono text-[13px] leading-relaxed text-foreground/90">

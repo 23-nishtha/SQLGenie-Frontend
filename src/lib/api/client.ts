@@ -1,10 +1,4 @@
-import type {
-  AskSuccess,
-  DatasetProfile,
-  DatasetsResponse,
-  SqlGenieError,
-  Trace,
-} from "./types";
+import type { AskSuccess, DatasetProfile, DatasetsResponse, SqlGenieError, Trace } from "./types";
 
 /** Single configurable API base URL. */
 export const API_BASE_URL = (
@@ -36,8 +30,7 @@ function asString(value: unknown): string | undefined {
 function toApiError(body: unknown, fallback: string): ApiError {
   if (isRecord(body)) {
     const errorBlock = isRecord(body["error"]) ? body["error"] : undefined;
-    const message =
-      asString(body["detail"]) ?? asString(errorBlock?.["message"]) ?? fallback;
+    const message = asString(body["detail"]) ?? asString(errorBlock?.["message"]) ?? fallback;
     const type = asString(errorBlock?.["type"]);
     const failedStep = asString(errorBlock?.["failed_step"]);
     return new ApiError({

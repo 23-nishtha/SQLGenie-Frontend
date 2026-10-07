@@ -108,7 +108,9 @@ export function EmptyResultState() {
       <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-soft text-brand">
         <Sparkles className="size-5" aria-hidden />
       </span>
-      <p className="mt-4 font-display text-lg font-semibold">Ask questions. Get answers from your data.</p>
+      <p className="mt-4 font-display text-lg font-semibold">
+        Ask questions. Get answers from your data.
+      </p>
       <p className="mt-1 max-w-md text-sm text-muted-foreground">
         SQLGenie retrieves the schema, writes SQL, validates it against its query guard, and runs it
         read-only. The full agent trace shows up here.

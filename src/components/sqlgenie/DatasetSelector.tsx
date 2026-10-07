@@ -26,7 +26,10 @@ export function DatasetSelector({
   return (
     <section aria-labelledby="dataset-heading" className="space-y-3">
       <div className="flex items-center justify-between">
-        <h2 id="dataset-heading" className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <h2
+          id="dataset-heading"
+          className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+        >
           Dataset
         </h2>
         {isSwitching && (
@@ -132,7 +135,9 @@ export function DatasetInfo({ dataset }: { dataset: DatasetProfile }) {
         </span>
       </div>
       {dataset.description && (
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{dataset.description}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+          {dataset.description}
+        </p>
       )}
     </div>
   );

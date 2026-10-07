@@ -1,12 +1,7 @@
 /** Types mirroring the SQLGenie FastAPI backend contract. */
 
 export type ThemeKey =
-  | "commerce"
-  | "football"
-  | "entertainment"
-  | "finance"
-  | "property"
-  | "default";
+  "commerce" | "football" | "entertainment" | "finance" | "property" | "default";
 
 export interface DatasetProfile {
   id: string;
