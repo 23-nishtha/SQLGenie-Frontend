@@ -22,3 +22,25 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Screenshots
+
+### SQLGenie Dashboard
+
+![SQLGenie Dashboard](screenshots/SQLGenie_dash_football.png)
+
+### Dataset Themes
+
+![Olist E-Commerce Theme](screenshots/SQLGenie_commerceTheme.png)
+
+![IMDb Movie Theme](screenshots/SQLGenie_movieTheme.png)
+
+### Query Execution Pipeline
+
+![SQLGenie Query Pipeline](screenshots/SQLGenie_Query_piplineTrace.png)
+
+![SQLGenie Pipeline Trace](screenshots/SQLGenie_pipelineTrace2.png)
+
+### Query and Results
+
+![SQLGenie Query and Results](screenshots/SQLGenie_qna.png)
