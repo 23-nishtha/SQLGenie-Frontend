@@ -14,7 +14,7 @@ export function ResultTable({ result }: { result: AskSuccess }) {
   }
 
   return (
-    <div className="max-h-[28rem] overflow-auto rounded-2xl border border-border">
+    <div className="result-table max-h-[28rem] overflow-auto rounded-2xl border border-border">
       <table className="w-full border-collapse text-sm">
         <caption className="sr-only">Query results</caption>
         <thead className="sticky top-0 z-10 bg-surface-2/95 backdrop-blur">

@@ -125,7 +125,7 @@ export function Pipeline({ trace, isAsking }: Props) {
           {typeof attempts === "number" && (
             <span
               className={cn(
-                "rounded-full border px-2.5 py-1 font-medium",
+                "theme-badge rounded-full border px-2.5 py-1 font-medium",
                 corrected
                   ? "border-warning/40 bg-warning/10 text-warning"
                   : "border-success/30 bg-success/10 text-success",

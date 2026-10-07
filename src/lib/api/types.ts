@@ -47,40 +47,56 @@ interface BaseStep {
   duration_ms?: number | null;
 }
 
+/** A table (or view) the schema-retrieval step picked as relevant to the
+ * question — never a bare string, always this shape. */
+export interface RetrievedTable {
+  name: string;
+  kind: "table" | "view" | string;
+  selected_by: "score" | "fk_expansion" | "fallback" | string;
+  score: number;
+}
+
 export type PipelineStep =
   | (BaseStep & { type: "question"; data?: { text?: string | null } | null })
   | (BaseStep & {
       type: "schema_retrieval";
       data?: {
-        tables?: string[] | null;
-        selected_tables?: string[] | null;
-        relationships?: (string | { from?: string; to?: string; on?: string })[] | null;
+        tables?: RetrievedTable[] | null;
+        relationships?: string[] | null;
+        schema_chars?: number | null;
+        full_schema_chars?: number | null;
+        error?: string | null;
       } | null;
     })
   | (BaseStep & {
       type: "sql_generation";
-      data?: { sql?: string | null; correction?: boolean | null; is_correction?: boolean | null } | null;
+      data?: { sql?: string | null; is_correction?: boolean | null; error?: string | null } | null;
     })
   | (BaseStep & {
       type: "sql_guard";
       data?: {
         approved?: boolean | null;
-        rejected?: boolean | null;
-        modified?: boolean | null;
+        original_sql?: string | null;
+        executed_sql?: string | null;
+        sql_was_modified?: boolean | null;
         reason?: string | null;
       } | null;
     })
   | (BaseStep & {
       type: "db_execution";
-      data?: { row_count?: number | null; error?: string | null } | null;
+      data?: {
+        executed_sql?: string | null;
+        row_count?: number | null;
+        columns?: string[] | null;
+        error?: string | null;
+      } | null;
     })
   | (BaseStep & {
       type: "self_correction";
       data?: {
         correction_number?: number | null;
-        attempt?: number | null;
+        max_corrections?: number | null;
         failed_sql?: string | null;
-        error?: string | null;
         db_error?: string | null;
       } | null;
     })

@@ -29,6 +29,5 @@ export function guardApproved(steps: PipelineStep[] | null | undefined): boolean
   const last = guards[guards.length - 1];
   if (!last || last.type !== "sql_guard") return false;
   if (last.status === "failed") return false;
-  if (last.data?.rejected === true) return false;
   return last.data?.approved !== false;
 }

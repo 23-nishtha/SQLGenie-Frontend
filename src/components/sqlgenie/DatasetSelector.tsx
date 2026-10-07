@@ -43,7 +43,7 @@ export function DatasetSelector({
       >
         {datasets.map((dataset) => {
           const active = dataset.id === activeId;
-          const meta = themeMeta(dataset.theme);
+          const meta = themeMeta(dataset);
           return (
             <button
               key={dataset.id}
@@ -52,9 +52,9 @@ export function DatasetSelector({
               aria-checked={active}
               disabled={isSwitching}
               onClick={() => !active && onSelect(dataset.id)}
-              data-theme={dataset.theme}
+              data-theme={meta.key}
               className={cn(
-                "min-w-[15rem] shrink-0 snap-start rounded-2xl border p-4 text-left transition-all duration-300 sm:min-w-0",
+                "dataset-card min-w-[15rem] shrink-0 snap-start rounded-2xl border p-4 text-left transition-all duration-300 sm:min-w-0",
                 "hover:-translate-y-0.5 disabled:opacity-60",
                 active
                   ? "border-brand/50 bg-brand-soft shadow-brand"
@@ -62,8 +62,8 @@ export function DatasetSelector({
               )}
             >
               <div className="flex items-start justify-between gap-2">
-                <span className="text-xl" aria-hidden>
-                  {meta.glyph}
+                <span className="flex size-8 items-center justify-center rounded-lg bg-surface-2 text-brand">
+                  <meta.Icon className="size-4" aria-hidden />
                 </span>
                 {dataset.source === "uploaded" && (
                   <span className="rounded-full border border-border px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">
@@ -82,7 +82,7 @@ export function DatasetSelector({
           onClick={() => fileRef.current?.click()}
           disabled={isUploading}
           className={cn(
-            "flex min-w-[13rem] shrink-0 snap-start flex-col items-start justify-center gap-2 rounded-2xl border border-dashed border-border bg-surface/40 p-4 text-left transition-colors sm:min-w-0",
+            "flex min-w-[13rem] shrink-0 snap-start flex-col items-start justify-center gap-2 rounded-2xl border border-dashed border-border bg-surface/70 p-4 text-left backdrop-blur-sm transition-colors sm:min-w-0",
             "hover:border-brand/40 hover:bg-brand-soft/40 disabled:opacity-60",
           )}
         >
@@ -119,9 +119,13 @@ export function DatasetSelector({
 }
 
 export function DatasetInfo({ dataset }: { dataset: DatasetProfile }) {
+  const meta = themeMeta(dataset);
   return (
-    <div className="rounded-2xl border border-border bg-surface/60 px-4 py-3">
+    <div className="dataset-info-card rounded-2xl border border-border bg-surface/80 px-4 py-3 backdrop-blur-sm">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
+          <meta.Icon className="size-3.5" aria-hidden />
+        </span>
         <h3 className="font-display text-base font-semibold">{dataset.name}</h3>
         <span className="rounded-full bg-brand-soft px-2 py-0.5 text-[11px] font-medium capitalize text-brand">
           {dataset.domain}

@@ -1,4 +1,4 @@
-import { Database, Loader2 } from "lucide-react";
+import { Database, Loader2, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type BackendStatus = "checking" | "online" | "offline";
@@ -9,13 +9,19 @@ const STATUS_COPY: Record<BackendStatus, string> = {
   offline: "Backend unavailable",
 };
 
-export function Header({ status }: { status: BackendStatus }) {
+export function Header({
+  status,
+  icon: Icon = Database,
+}: {
+  status: BackendStatus;
+  icon?: LucideIcon;
+}) {
   return (
     <header className="sticky top-0 z-30 border-b border-border/80 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <div className="flex items-center gap-3">
           <span className="flex size-10 items-center justify-center rounded-xl bg-brand-soft text-brand ring-1 ring-brand/30">
-            <Database className="size-5" aria-hidden />
+            <Icon className="size-5" aria-hidden />
           </span>
           <div className="leading-tight">
             <p className="font-display text-lg font-bold tracking-tight">SQLGenie</p>
@@ -27,7 +33,7 @@ export function Header({ status }: { status: BackendStatus }) {
 
         <div
           className={cn(
-            "flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium",
+            "theme-badge flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium",
             status === "online" && "border-success/30 bg-success/10 text-success",
             status === "offline" && "border-destructive/30 bg-destructive/10 text-destructive",
             status === "checking" && "border-border bg-surface text-muted-foreground",

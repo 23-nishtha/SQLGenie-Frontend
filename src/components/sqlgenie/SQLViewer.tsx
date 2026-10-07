@@ -21,7 +21,7 @@ export function SQLViewer({ sql, guardApproved }: { sql: string; guardApproved: 
           <span className="flex items-center gap-2">
             Generated SQL
             {guardApproved && (
-              <span className="hidden items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success sm:inline-flex">
+              <span className="theme-badge hidden items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success sm:inline-flex">
                 <ShieldCheck className="size-3" aria-hidden />
                 Validated by SQLGenie's query guard
               </span>

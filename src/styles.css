@@ -96,39 +96,51 @@
   --chart-5: oklch(0.68 0.18 25);
 }
 
+/*
+ * Exactly four dataset themes (see src/lib/theme-config.ts). "default" is
+ * this base :root palette as-is — the plain, undecorated workspace used for
+ * every uploaded CSV and any dataset without a recognized built-in theme.
+ * The other three each get a distinct accent + chart palette here, PLUS an
+ * actual illustrated scene (src/components/sqlgenie/theme/scenes/) rendered
+ * by ThemeBackdrop — the color vars alone are not the theme, just the part
+ * that also needs to tint cards/tables/charts.
+ */
+
+/* Olist e-commerce — warm cardboard/amber accent, cool slate/teal chart
+ * contrast. Paired with EcommerceScene (boxes, receipts, barcode, bag). */
 [data-theme="commerce"] {
   --brand: oklch(0.75 0.16 62);
   --brand-soft: oklch(0.75 0.16 62 / 16%);
   --brand-glow: oklch(0.75 0.16 62 / 35%);
   --ring: oklch(0.75 0.16 62);
+  --chart-2: oklch(0.6 0.08 230);
+  --chart-3: oklch(0.7 0.11 190);
 }
 
+/* Football — pitch green accent, gold/crimson chart contrast. Paired with
+ * FootballFieldScene (an actual overhead pitch). */
 [data-theme="football"] {
   --brand: oklch(0.76 0.18 148);
   --brand-soft: oklch(0.76 0.18 148 / 16%);
   --brand-glow: oklch(0.76 0.18 148 / 35%);
   --ring: oklch(0.76 0.18 148);
+  --chart-2: oklch(0.82 0.16 95);
+  --chart-3: oklch(0.6 0.19 25);
 }
 
+/* IMDb movies — magenta/gold accent, deeper cinematic background. Paired
+ * with CinemaScene (letterbox film strip, curtains, spotlight). */
 [data-theme="entertainment"] {
+  --background: oklch(0.12 0.015 290);
+  --surface: oklch(0.155 0.018 290);
+  --surface-2: oklch(0.185 0.02 290);
+  --card: oklch(0.16 0.018 290);
   --brand: oklch(0.7 0.17 330);
   --brand-soft: oklch(0.7 0.17 330 / 16%);
   --brand-glow: oklch(0.7 0.17 330 / 35%);
   --ring: oklch(0.7 0.17 330);
-}
-
-[data-theme="finance"] {
-  --brand: oklch(0.74 0.15 190);
-  --brand-soft: oklch(0.74 0.15 190 / 16%);
-  --brand-glow: oklch(0.74 0.15 190 / 35%);
-  --ring: oklch(0.74 0.15 190);
-}
-
-[data-theme="property"] {
-  --brand: oklch(0.72 0.13 258);
-  --brand-soft: oklch(0.72 0.13 258 / 16%);
-  --brand-glow: oklch(0.72 0.13 258 / 35%);
-  --ring: oklch(0.72 0.13 258);
+  --chart-2: oklch(0.78 0.14 85);
+  --chart-3: oklch(0.55 0.14 290);
 }
 
 @layer base {
@@ -153,6 +165,49 @@
   :focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 2px;
+  }
+
+  /* Dataset-theme switches re-paint color/shadow/scene across the whole app;
+   * transition them smoothly instead of flashing between themes. */
+  body,
+  main,
+  .glass-panel,
+  .dataset-card,
+  .dataset-info-card,
+  .result-table,
+  .theme-badge,
+  .theme-backdrop__wash,
+  .theme-backdrop__scene,
+  .theme-backdrop__scrim,
+  button,
+  a,
+  svg {
+    transition:
+      background-color 450ms ease,
+      border-color 450ms ease,
+      color 300ms ease,
+      box-shadow 450ms ease,
+      fill 300ms ease,
+      stroke 300ms ease,
+      opacity 500ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body,
+    main,
+    .glass-panel,
+    .dataset-card,
+    .dataset-info-card,
+    .result-table,
+    .theme-badge,
+    .theme-backdrop__wash,
+    .theme-backdrop__scene,
+    .theme-backdrop__scrim,
+    button,
+    a,
+    svg {
+      transition-duration: 0.01ms;
+    }
   }
 }
 
@@ -183,4 +238,139 @@
     linear-gradient(to right, var(--border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--border) 1px, transparent 1px);
   background-size: 44px 44px;
+}
+
+/*
+ * Full-viewport decorative backdrop (see ThemeBackdrop.tsx). Fixed and
+ * z-index: -1 so it sits behind all real content without affecting layout;
+ * aria-hidden + pointer-events: none keep it out of the accessibility tree
+ * and out of the way of interaction.
+ */
+.theme-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-backdrop__wash,
+.theme-backdrop__scene,
+.theme-backdrop__scrim {
+  position: absolute;
+  inset: 0;
+}
+
+.theme-backdrop__wash {
+  background:
+    radial-gradient(70rem 40rem at 12% -10%, var(--brand-soft), transparent 65%),
+    radial-gradient(55rem 35rem at 95% 0%, oklch(0.99 0 0 / 5%), transparent 60%),
+    var(--background);
+}
+
+/* The theme's illustrated environment (pitch / ops floor / cinema set).
+ * Rendered at near-full strength on purpose — every real panel/card sits on
+ * its own semi-opaque, blurred surface (.glass-panel etc.) on top of this,
+ * so legibility never depends on dimming the scene itself. */
+.theme-backdrop__scene {
+  overflow: hidden;
+  opacity: 0.92;
+}
+.theme-backdrop__scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* A soft vignette so the scene grounds into the page edges/top instead of
+ * cutting off sharply; purely a finishing touch, not a readability crutch. */
+.theme-backdrop__scrim {
+  background: radial-gradient(
+    120% 85% at 50% 0%,
+    transparent 45%,
+    color-mix(in oklab, var(--background) 55%, transparent) 100%
+  );
+}
+
+/*
+ * Theme-aware card/table/badge treatment. These target shared utility
+ * classes (.glass-panel, .dataset-card, .dataset-info-card, .result-table,
+ * .theme-badge) already used by Header, Pipeline, QuestionPanel,
+ * AnswerSection, SQLViewer, TraceDetails, DatasetSelector and ResultTable —
+ * so every one of those surfaces picks up the active theme automatically,
+ * with no per-component conditional JSX.
+ */
+
+/* Olist e-commerce — panels read as packing labels/invoices: dashed inset
+ * border like a sticker, squared-off business-report radius, paper-toned
+ * table header, badges styled like shipping stickers. */
+[data-theme="commerce"] .glass-panel,
+[data-theme="commerce"] .dataset-info-card {
+  border-radius: var(--radius-xl);
+  box-shadow:
+    var(--shadow-elevated),
+    inset 0 0 0 1px color-mix(in oklab, var(--brand) 20%, transparent);
+}
+[data-theme="commerce"] .result-table thead {
+  background: color-mix(in oklab, var(--brand) 14%, var(--surface-2));
+}
+[data-theme="commerce"] .result-table tbody tr:nth-child(odd) {
+  background: color-mix(in oklab, var(--brand) 4%, transparent);
+}
+[data-theme="commerce"] .theme-badge {
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+/* Football — panels read as scoreboard/HUD bezels: thick top accent bar,
+ * uppercase tracked headings, angular badges, stat-sheet row highlight. */
+[data-theme="football"] .glass-panel,
+.dataset-card[data-theme="football"] {
+  border-top: 3px solid color-mix(in oklab, var(--brand) 55%, transparent);
+}
+[data-theme="football"] .glass-panel h2,
+[data-theme="football"] .glass-panel h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+[data-theme="football"] .result-table thead {
+  background: color-mix(in oklab, var(--brand) 16%, var(--surface-2));
+  text-transform: uppercase;
+}
+[data-theme="football"] .result-table tbody tr:hover {
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+}
+[data-theme="football"] .theme-badge {
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* IMDb movies — panels glow like a marquee/screen, headings get cinematic
+ * tracking + glow, table rows alternate like a listings board, badges get
+ * a ticket-stub notch. */
+[data-theme="entertainment"] .glass-panel,
+[data-theme="entertainment"] .dataset-info-card {
+  box-shadow: var(--shadow-elevated), 0 0 48px -16px var(--brand-glow);
+  border-color: color-mix(in oklab, var(--brand) 25%, var(--border));
+}
+[data-theme="entertainment"] .glass-panel h2 {
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 18px var(--brand-glow);
+}
+[data-theme="entertainment"] .result-table thead {
+  background: color-mix(in oklab, var(--brand) 12%, var(--surface-2));
+}
+[data-theme="entertainment"] .result-table tbody tr:nth-child(odd) {
+  background: color-mix(in oklab, var(--brand) 6%, transparent);
+}
+[data-theme="entertainment"] .theme-badge {
+  border-radius: 999px;
+  box-shadow: 0 0 12px -2px var(--brand-glow);
+}
+
+/* Shared readability guard: results must stay legible over any scene, so
+ * the table always sits on a near-opaque surface regardless of theme. */
+.result-table {
+  background: color-mix(in oklab, var(--surface) 96%, transparent);
 }
