@@ -1,16 +1,45 @@
-# Pixel Perfect
+# SQLGenie Frontend
 
-Implement exactly the screenshot and nothing else
+React + TypeScript frontend for **SQLGenie**, an AI-powered Text-to-SQL analytics application.
 
-This project was built with [Lovable](https://lovable.dev).
+The frontend provides an interactive interface for selecting datasets, uploading CSV files, asking natural-language questions, viewing generated SQL, inspecting the execution pipeline, and displaying query results.
 
-## Build with Lovable
+## Features
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/86f027df-32cd-4dc7-add9-31cdcbd5158d).
+- Dataset selection and dataset-specific themes
+- Natural-language database querying
+- CSV upload interface
+- SQL query and execution result display
+- Query execution pipeline trace
+- Online/offline backend status
+- Error and empty-result states
+- Responsive React interface
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Tech Stack
+
+- React
+- TypeScript
+- TanStack Start
+- Vite
+- Tailwind CSS
+- Recharts
+- Radix UI
+- Lucide React
+
+## Development
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Run locally
+
+````sh
+git clone https://github.com/23-nishtha/SQLGenie-Frontend.git
+cd SQLGenie-Frontend
+npm install
+npm run dev
 
 ## Development
 
@@ -21,7 +50,7 @@ git clone <this-repository-url>
 cd <repository-name>
 npm i
 npm run dev
-```
+````
 
 ## Screenshots
 
